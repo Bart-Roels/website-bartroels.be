@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>CLI Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
         background-color: black;
@@ -26,6 +27,7 @@
 
       .input-container {
         display: flex;
+        flex-wrap: wrap; /* Allow input field to wrap to the next line on smaller screens */
         margin-top: 10px;
       }
 
@@ -40,6 +42,8 @@
         color: green;
         outline: none;
         font-size: 24px;
+        flex: 1; /* Allow the input field to expand to fill the available space */
+        min-width: 0; /* Ensure the input field can shrink on smaller screens */
       }
     </style>
   </head>
