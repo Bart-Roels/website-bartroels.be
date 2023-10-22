@@ -1,102 +1,117 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>CLI Interface</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      body {
-        background-color: black;
-        color: #00ff00;
-        font-family: monospace;
-        font-size: 24px;
-      }
 
-      .cli {
-        border: 1px solid #00ff00;
-        padding: 20px;
-      }
+<head>
+  <title>CLI Interface</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      font-size: 24px;
+    }
 
-      .prompt {
-        color: #00ff00;
-      }
+    .cli {
+      border: 1px solid #00ff00;
+      padding: 20px;
+    }
 
-      .output {
-        color: gray;
-        margin-top: 10px;
-      }
+    .prompt {
+      color: #00ff00;
+    }
 
-      .input-container {
-        display: flex;
-        flex-wrap: wrap; /* Allow input field to wrap to the next line on smaller screens */
-        margin-top: 10px;
-      }
+    .output {
+      color: gray;
+      margin-top: 10px;
+    }
 
-      .input-prompt {
-        color: #00ff00;
-        margin-right: 5px;
-      }
+    .input-container {
+      display: flex;
+      flex-wrap: wrap;
+      /* Allow input field to wrap to the next line on smaller screens */
+      margin-top: 10px;
+    }
 
-      .input-field {
-        border: none;
-        background-color: transparent;
-        color: green;
-        outline: none;
-        font-size: 24px;
-        flex: 1; /* Allow the input field to expand to fill the available space */
-        min-width: 0; /* Ensure the input field can shrink on smaller screens */
-      }
-    </style>
-  </head>
-  <body>
-    <div class="cli">
-      <div class="prompt">Welcome to bartroels.be! Type 'help' for a list of commands. 🚀</div>
-      <div class="output"></div>
-      <div class="input-container">
-        <div class="input-prompt">&gt;</div>
-        <div contenteditable="true" class="input-field" id="input"></div>
-      </div>
+    .input-prompt {
+      color: #00ff00;
+      margin-right: 5px;
+    }
+
+    .input-field {
+      border: none;
+      background-color: transparent;
+      color: green;
+      outline: none;
+      font-size: 24px;
+      flex: 1;
+      /* Allow the input field to expand to fill the available space */
+      min-width: 0;
+      /* Ensure the input field can shrink on smaller screens */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cli">
+    <div class="prompt">Welcome to bartroels.be! Type 'help' for a list of commands. 🚀</div>
+    <div class="output"></div>
+    <div class="input-container">
+      <div class="input-prompt">&gt;</div>
+      <div contenteditable="true" class="input-field" id="input"></div>
     </div>
+  </div>
 
-    <script>
-      const inputField = document.getElementById('input');
-      const outputField = document.querySelector('.output');
+  <script>
+    const inputField = document.getElementById('input');
+    const outputField = document.querySelector('.output');
 
-      inputField.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-          const command = inputField.textContent;
-          inputField.textContent = '';
-          outputField.innerHTML += `<div class="prompt">&gt; ${command}</div>`;
-          handleCommand(command);
-        }
-      });
-
-      function handleCommand(command) {
-        switch (command.toLowerCase()) {
-          case 'help':
-            outputField.innerHTML += `<div class="output">List of commands: 📜</div>`;
-            outputField.innerHTML += `<div class="output">- links 🔗</div>`;
-            outputField.innerHTML += `<div class="output">- about ℹ️</div>`;
-            outputField.innerHTML += `<div class="output">- clear 🧹</div>`; // Add the "clear" command
-            break;
-          case 'links':
-            outputField.innerHTML += `<div class="output">GitHub: <a href="https://github.com/Bart-Roels" target="_blank">https://github.com/Bart-Roels</a> 🔗</div>`;
-            outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels-811597203/" target="_blank">https://www.linkedin.com/in/bart-roels-811597203/</a> 🔗</div>`;
-            break;
-          case 'about':
-            outputField.innerHTML += `<div class="output">👋 Greetings! I'm Bart, a 19-year-old with an unquenchable passion for programming and networking. Currently, I'm pursuing my studies in Multimedia and Creative Technologies at Howest Kortrijk, with a special focus on IoT infrastructure engineering. ℹ️</div>`;
-            outputField.innerHTML += `<div class="output">In addition to my academic pursuits, I'm also an avid aviation enthusiast, both in the digital realm and the skies above. As a hot air balloon pilot, I embark on adventures high above the ground, exploring the world from a unique vantage point. 🎈✈️</div>`;
-            outputField.innerHTML += `<div class="output">While I find joy in crafting and managing networks as a dedicated network engineer, my love for adventure is not confined to technology alone. Whether I'm soaring high in a hot air balloon or traversing the world from an elevated perspective, my heart is forever drawn to the exhilaration of exploration. 🌍</div>`;
-            outputField.innerHTML += `<div class="output">When I return to solid ground, my enthusiasm for networking remains unwavering. I'm wholeheartedly committed to honing my skills and contributing to groundbreaking projects, making the most of every exciting chapter in my journey. 🚀</div>`;
-            break;
-          case 'clear':
-            outputField.innerHTML = ''; // Clears the output
-            break;
-          default:
-            outputField.innerHTML += `<div class="output">Command not found: ${command} ❌</div>`;
-            break;
-        }
+    inputField.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const command = inputField.textContent;
+        inputField.textContent = '';
+        outputField.innerHTML += `<div class="prompt">&gt; ${command}</div>`;
+        handleCommand(command);
       }
-    </script>
-  </body>
+    });
+
+    function handleCommand(command) {
+      switch (command.toLowerCase()) {
+        case 'help':
+          outputField.innerHTML += `<div class="output">List of commands: 📜</div>`;
+          outputField.innerHTML += `<div class="output">- links 🔗</div>`;
+          outputField.innerHTML += `<div class="output">- about ℹ️</div>`;
+          outputField.innerHTML += `<div class="output">- clear 🧹</div>`; // Add the "clear" command
+          break;
+        case 'links':
+          outputField.innerHTML += `<div class="output">GitHub: <a href="https://github.com/Bart-Roels" target="_blank">https://github.com/Bart-Roels</a> 🔗</div>`;
+          outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels-811597203/" target="_blank">https://www.linkedin.com/in/bart-roels-811597203/</a> 🔗</div>`;
+          break;
+        case 'about':
+          outputField.innerHTML += `<div class="output">👋 Greetings! I'm Bart, a 19-year-old with an unquenchable passion for programming and networking. Currently, I'm pursuing my studies in Multimedia and Creative Technologies at Howest Kortrijk, with a special focus on IoT infrastructure engineering. ℹ️</div>`;
+          outputField.innerHTML += `<div class="output">In addition to my academic pursuits, I'm also an avid aviation enthusiast, both in the digital realm and the skies above. As a hot air balloon pilot, I embark on adventures high above the ground, exploring the world from a unique vantage point. 🎈✈️</div>`;
+          outputField.innerHTML += `<div class="output">While I find joy in crafting and managing networks as a dedicated network engineer, my love for adventure is not confined to technology alone. Whether I'm soaring high in a hot air balloon or traversing the world from an elevated perspective, my heart is forever drawn to the exhilaration of exploration. 🌍</div>`;
+          outputField.innerHTML += `<div class="output">When I return to solid ground, my enthusiasm for networking remains unwavering. I'm wholeheartedly committed to honing my skills and contributing to groundbreaking projects, making the most of every exciting chapter in my journey. 🚀</div>`;
+          break;
+        case 'clear':
+          outputField.innerHTML = ''; // Clears the output
+          break;
+        case 'rm -rf /':
+          outputField.innerHTML = ''; // Clear the output
+          document.body.style.backgroundColor = 'black'; // Set background color to black
+          outputField.innerHTML += `<div class="output">Screen is fading to black... 😱</div>`;
+          setTimeout(() => {
+            outputField.innerHTML += `<div class="output">Just kidding! Everything is still safe. 😅</div>`;
+            document.body.style.backgroundColor = 'black'; // You can set the background color back to the original color if you want
+          }, 2000); // This example waits for 2 seconds before returning to the normal state
+          break;
+        default:
+          outputField.innerHTML += `<div class="output">Command not found: ${command} ❌</div>`;
+          break;
+      }
+    }
+  </script>
+</body>
+
 </html>
