@@ -49,7 +49,7 @@
   </head>
   <body>
     <div class="cli">
-      <div class="prompt">Welcome to bartroels.be! Type 'help' for a list of commands.</div>
+      <div class="prompt">Welcome to bartroels.be! Type 'help' for a list of commands. 🚀</div>
       <div class="output"></div>
       <div class="input-container">
         <div class="input-prompt">&gt;</div>
@@ -74,31 +74,26 @@
       function handleCommand(command) {
         switch (command.toLowerCase()) {
           case 'help':
-            outputField.innerHTML += `<div class="output">List of commands:</div>`;
-            outputField.innerHTML += `<div class="output">- links</div>`;
-            outputField.innerHTML += `<div class="output">- about</div>`;
-            outputField.innerHTML += `<div class="output">- clear</div>`; // Add the "clear" command
+            outputField.innerHTML += `<div class="output">List of commands: 📜</div>`;
+            outputField.innerHTML += `<div class="output">- links 🔗</div>`;
+            outputField.innerHTML += `<div class="output">- about ℹ️</div>`;
+            outputField.innerHTML += `<div class="output">- clear 🧹</div>`; // Add the "clear" command
             break;
           case 'links':
-            outputField.innerHTML += `<div class="output">GitHub: <a href="https://github.com/Bart-Roels" target="_blank">https://github.com/Bart-Roels</a></div>`;
-            outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels-811597203/" target="_blank">https://www.linkedin.com/in/bart-roels-811597203/</a></div>`;
+            outputField.innerHTML += `<div class="output">GitHub: <a href="https://github.com/Bart-Roels" target="_blank">https://github.com/Bart-Roels</a> 🔗</div>`;
+            outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels-811597203/" target="_blank">https://www.linkedin.com/in/bart-roels-811597203/</a> 🔗</div>`;
             break;
           case 'about':
-            outputField.innerHTML += `<div class="output">👋 Greetings! I'm Bart, a 19-year-old with an insatiable passion for programming and networking.</div>`;
-            outputField.innerHTML += `<div class="output">Currently, I'm enrolled in the Multimedia and Creative Technologies program at Howest Kortrijk, specializing in IoT infrastructure engineering.</div>`;
-            outputField.innerHTML += `<div class="output">Beyond academics, I'm also a hot air balloon pilot, embracing adventure from high above.</div>`;
-            outputField.innerHTML += `<div class="output">As a dedicated network engineer, I find joy in crafting and managing networks.</div>`;
-            outputField.innerHTML += `<div class="output">But my interests don't stop there; I'm an explorer at heart.</div>`;
-            outputField.innerHTML += `<div class="output">Whether it's soaring high in a hot air balloon or traversing the world from an elevated perspective, I have an innate love for adventure.</div>`;
-            outputField.innerHTML += `<div class="output">Back on solid ground, my enthusiasm for networking remains unwavering.</div>`;
-            outputField.innerHTML += `<div class "output">I'm committed to enhancing my skills and contributing to groundbreaking projects.</div>`;
-            outputField.innerHTML += `<div class="output">In essence, I'm a tech enthusiast and a relentless adventurer, eager to uncover the exciting chapters of my journey. 🚀</div>`;
+            outputField.innerHTML += `<div class="output">👋 Greetings! I'm Bart, a 19-year-old with an unquenchable passion for programming and networking. Currently, I'm pursuing my studies in Multimedia and Creative Technologies at Howest Kortrijk, with a special focus on IoT infrastructure engineering. ℹ️</div>`;
+            outputField.innerHTML += `<div class="output">In addition to my academic pursuits, I'm also an avid aviation enthusiast, both in the digital realm and the skies above. As a hot air balloon pilot, I embark on adventures high above the ground, exploring the world from a unique vantage point. 🎈✈️</div>`;
+            outputField.innerHTML += `<div class="output">While I find joy in crafting and managing networks as a dedicated network engineer, my love for adventure is not confined to technology alone. Whether I'm soaring high in a hot air balloon or traversing the world from an elevated perspective, my heart is forever drawn to the exhilaration of exploration. 🌍</div>`;
+            outputField.innerHTML += `<div class="output">When I return to solid ground, my enthusiasm for networking remains unwavering. I'm wholeheartedly committed to honing my skills and contributing to groundbreaking projects, making the most of every exciting chapter in my journey. 🚀</div>`;
             break;
           case 'clear':
             outputField.innerHTML = ''; // Clears the output
             break;
           default:
-            outputField.innerHTML += `<div class="output">Command not found: ${command}</div>`;
+            outputField.innerHTML += `<div class="output">Command not found: ${command} ❌</div>`;
             break;
         }
       }
