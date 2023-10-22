@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CLI Interface</title>
+    <style>
+      body {
+        background-color: black;
+        color: #00ff00;
+        font-family: monospace;
+        font-size: 24px;
+      }
+
+      .cli {
+        border: 1px solid #00ff00;
+        padding: 20px;
+      }
+
+      .prompt {
+        color: #00ff00;
+      }
+
+      .output {
+        color: gray;
+        margin-top: 10px;
+      }
+
+      .input-container {
+        display: flex;
+        margin-top: 10px;
+      }
+
+      .input-prompt {
+        color: #00ff00;
+        margin-right: 5px;
+      }
+
+      .input-field {
+        border: none;
+        background-color: transparent;
+        color: green;
+        outline: none;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cli">
+      <div class="prompt">Welcome to bartroels.be! Type 'help' for a list of commands.</div>
+      <div class="output"></div>
+      <div class="input-container">
+        <div class="input-prompt">&gt;</div>
+        <div contenteditable="true" class="input-field" id="input"></div>
+      </div>
+    </div>
+
+    <script>
+      const inputField = document.getElementById('input');
+      const outputField = document.querySelector('.output');
+
+      inputField.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const command = inputField.textContent;
+          inputField.textContent = '';
+          outputField.innerHTML += `<div class="prompt">&gt; ${command}</div>`;
+          handleCommand(command);
+        }
+      });
+
+      function handleCommand(command) {
+        switch (command.toLowerCase()) {
+          case 'help':
+            outputField.innerHTML += `<div class="output">List of commands:</div>`;
+            outputField.innerHTML += `<div class="output">- links</div>`;
+            outputField.innerHTML += `<div class="output">- about</div>`;
+            outputField.innerHTML += `<div class="output">- clear</div>`; // Add the "clear" command
+            break;
+          case 'links':
+            outputField.innerHTML += `<div class="output">GitHub: <a href="https://github.com/Bart-Roels" target="_blank">https://github.com/Bart-Roels</a></div>`;
+            outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels-811597203/" target="_blank">https://www.linkedin.com/in/bart-roels-811597203/</a></div>`;
+            break;
+          case 'about':
+            outputField.innerHTML += `<div class="output">👋 Greetings! I'm Bart, a 19-year-old with an insatiable passion for programming and networking.</div>`;
+            outputField.innerHTML += `<div class="output">Currently, I'm enrolled in the Multimedia and Creative Technologies program at Howest Kortrijk, specializing in IoT infrastructure engineering.</div>`;
+            outputField.innerHTML += `<div class="output">Beyond academics, I'm also a hot air balloon pilot, embracing adventure from high above.</div>`;
+            outputField.innerHTML += `<div class="output">As a dedicated network engineer, I find joy in crafting and managing networks.</div>`;
+            outputField.innerHTML += `<div class="output">But my interests don't stop there; I'm an explorer at heart.</div>`;
+            outputField.innerHTML += `<div class="output">Whether it's soaring high in a hot air balloon or traversing the world from an elevated perspective, I have an innate love for adventure.</div>`;
+            outputField.innerHTML += `<div class="output">Back on solid ground, my enthusiasm for networking remains unwavering.</div>`;
+            outputField.innerHTML += `<div class "output">I'm committed to enhancing my skills and contributing to groundbreaking projects.</div>`;
+            outputField.innerHTML += `<div class="output">In essence, I'm a tech enthusiast and a relentless adventurer, eager to uncover the exciting chapters of my journey. 🚀</div>`;
+            break;
+          case 'clear':
+            outputField.innerHTML = ''; // Clears the output
+            break;
+          default:
+            outputField.innerHTML += `<div class="output">Command not found: ${command}</div>`;
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
