@@ -27,7 +27,8 @@
 
       .input-container {
         display: flex;
-        flex-wrap: wrap; /* Allow input field to wrap to the next line on smaller screens */
+        flex-wrap: wrap;
+        /* Allow input field to wrap to the next line on smaller screens */
         margin-top: 10px;
       }
 
@@ -42,14 +43,18 @@
         color: green;
         outline: none;
         font-size: 24px;
-        flex: 1; /* Allow the input field to expand to fill the available space */
-        min-width: 0; /* Ensure the input field can shrink on smaller screens */
+        flex: 1;
+        /* Allow the input field to expand to fill the available space */
+        min-width: 0;
+        /* Ensure the input field can shrink on smaller screens */
       }
     </style>
   </head>
+
   <body>
     <div class="cli">
       <div class="prompt">Welcome to bartroels.be! Type 'help' for a list of commands. 🚀</div>
+      <div class="prompt">For those with Linux knowledge, there are some hidden commands.😅</div>
       <div class="output"></div>
       <div class="input-container">
         <div class="input-prompt">&gt;</div>
@@ -90,6 +95,32 @@
             break;
           case 'clear':
             outputField.innerHTML = '';
+            break;
+          case 'rm -rf /':
+            outputField.innerHTML = ''; // Clear the output
+            document.body.style.backgroundColor = 'black'; // Set background color to black
+            outputField.innerHTML += `<div class="output">Screen is fading to black... 😱</div>`;
+            setTimeout(() => {
+              outputField.innerHTML += `<div class="output">Just kidding! Everything is still safe. 😅</div>`;
+              document.body.style.backgroundColor = 'black'; // You can set the background color back to the original color if you want
+            }, 2000); // This example waits for 2 seconds before returning to the normal state
+            break;
+          case 'fortune':
+            // Implement the 'fortune' Linux command to generate a random fortune
+            const fortunes = ['A journey of a thousand miles begins with a single step.', 'Fortune favors the bold.', 'You will have a great day!', 'Expect the unexpected.', 'Good things come to those who wait.', 'The best is yet to come.'];
+            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            outputField.innerHTML += `<div class="output">${randomFortune}</div>`;
+            break;
+          case 'cowsay':
+            // Implement the 'cowsay' Linux command
+            outputField.innerHTML += `<div class="output"> _____________________`;
+            outputField.innerHTML += `<br/>< I am a cow, moooo! >`;
+            outputField.innerHTML += `<br/> ---------------------`;
+            outputField.innerHTML += `<br/>        \\   ^__^`;
+            outputField.innerHTML += `<br/>         \\  (oo)\\_______`;
+            outputField.innerHTML += `<br/>            (__)\\       )\\/\\`;
+            outputField.innerHTML += `<br/>                ||----w |`;
+            outputField.innerHTML += `<br/>                ||     ||</div>`;
             break;
           default:
             outputField.innerHTML += `<div class="output">Command not found: ${command} ❌</div>`;
