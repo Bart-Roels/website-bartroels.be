@@ -64,10 +64,9 @@
       inputField.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           event.preventDefault();
-          const command = inputField.textContent;
+          const command = inputField.textContent.trim();
           inputField.textContent = '';
-          outputField.innerHTML += `<div class="prompt">&gt; ${command}</div>`;
-          handleCommand(command);
+          executeCommand(command);
         }
       });
 
@@ -77,11 +76,11 @@
             outputField.innerHTML += `<div class="output">List of commands: 📜</div>`;
             outputField.innerHTML += `<div class="output">- links 🔗</div>`;
             outputField.innerHTML += `<div class="output">- about ℹ️</div>`;
-            outputField.innerHTML += `<div class="output">- clear 🧹</div>`; // Add the "clear" command
+            outputField.innerHTML += `<div class="output">- clear 🧹</div>`;
             break;
           case 'links':
             outputField.innerHTML += `<div class="output">GitHub: <a href="https://github.com/Bart-Roels" target="_blank">https://github.com/Bart-Roels</a> 🔗</div>`;
-            outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels-811597203/" target="_blank">https://www.linkedin.com/in/bart-roels-811597203/</a> 🔗</div>`;
+            outputField.innerHTML += `<div class="output">LinkedIn: <a href="https://www.linkedin.com/in/bart-roels/" target="_blank">https://www.linkedin.com/in/bart-roels/</a> 🔗</div>`;
             break;
           case 'about':
             outputField.innerHTML += `<div class="output">👋 Greetings! I'm Bart, a 19-year-old with an unquenchable passion for programming and networking. Currently, I'm pursuing my studies in Multimedia and Creative Technologies at Howest Kortrijk, with a special focus on IoT infrastructure engineering. ℹ️</div>`;
@@ -90,13 +89,31 @@
             outputField.innerHTML += `<div class="output">When I return to solid ground, my enthusiasm for networking remains unwavering. I'm wholeheartedly committed to honing my skills and contributing to groundbreaking projects, making the most of every exciting chapter in my journey. 🚀</div>`;
             break;
           case 'clear':
-            outputField.innerHTML = ''; // Clears the output
+            outputField.innerHTML = '';
             break;
           default:
             outputField.innerHTML += `<div class="output">Command not found: ${command} ❌</div>`;
             break;
         }
       }
+
+      // New function to execute a command directly
+      function executeCommand(command) {
+        outputField.innerHTML += `<div class="prompt">&gt; ${command}</div>`;
+        handleCommand(command);
+      }
+
+      // Function to check URL parameters and execute a command if found
+      function checkUrlParameter() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('links')) {
+          executeCommand('links');
+        }
+        // Add more conditions here if you have other commands you want to trigger via URL parameters
+      }
+
+      // Call checkUrlParameter on page load
+      window.onload = checkUrlParameter;
     </script>
   </body>
 </html>
