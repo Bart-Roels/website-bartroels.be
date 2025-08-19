@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Download GPX route</title>
+  <script>
+    window.onload = function() {
+      // Vervang 'route.gpx' door de naam/locatie van jouw bestand
+      const link = document.createElement("a");
+      link.href = "Vlasschaard_2025__62km.gpx";  
+      link.download = "Vlasschaard_2025__62km.gpx"; // Naam van bestand bij downloaden
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+  </script>
+</head>
+<body>
+  <p>De GPX-route wordt gedownload...</p>
+  <p>Mocht het niet automatisch starten, <a href="route.gpx" download="mijn-fietsroute.gpx">klik hier</a>.</p>
+</body>
+</html>
