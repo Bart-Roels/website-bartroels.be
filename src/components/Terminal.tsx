@@ -24,6 +24,7 @@ type Entry =
 
 const HISTORY_KEY = 'bartroels-terminal-history';
 const THEME_KEY = 'bartroels-terminal-theme';
+let fallbackIdCounter = 0;
 
 export function Terminal() {
   const [entries, setEntries] = useState<Entry[]>(() => [createSystemEntry()]);
@@ -40,11 +41,11 @@ export function Terminal() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    localStorage.setItem(THEME_KEY, theme);
+    saveStorageItem(THEME_KEY, theme);
   }, [theme]);
 
   useEffect(() => {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(-60)));
+    saveStorageItem(HISTORY_KEY, JSON.stringify(history.slice(-60)));
   }, [history]);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export function Terminal() {
     setEntries((current) => [
       ...current,
       {
-        id: crypto.randomUUID(),
+        id: createEntryId(),
         kind: 'command',
         command,
         lines: result.lines,
@@ -141,7 +142,7 @@ export function Terminal() {
 
 function createSystemEntry(): Entry {
   return {
-    id: crypto.randomUUID(),
+    id: createEntryId(),
     kind: 'system',
     lines: createBootLines(),
   };
@@ -153,7 +154,7 @@ function focusInput() {
 
 function loadHistory(): string[] {
   try {
-    const saved = localStorage.getItem(HISTORY_KEY);
+    const saved = readStorageItem(HISTORY_KEY);
     return saved ? JSON.parse(saved) : [];
   } catch {
     return [];
@@ -161,6 +162,38 @@ function loadHistory(): string[] {
 }
 
 function loadTheme(): ThemeName {
-  const saved = localStorage.getItem(THEME_KEY);
+  const saved = readStorageItem(THEME_KEY);
   return saved === 'blue' || saved === 'amber' || saved === 'green' ? saved : 'green';
+}
+
+function createEntryId() {
+  try {
+    const randomUUID = globalThis.crypto?.randomUUID;
+    if (typeof randomUUID === 'function') {
+      return randomUUID.call(globalThis.crypto);
+    }
+  } catch {
+    // Some in-app WebViews expose partial crypto APIs. Fall back to a stable local id.
+  }
+
+  fallbackIdCounter += 1;
+  return `entry-${Date.now().toString(36)}-${fallbackIdCounter}-${Math.random()
+    .toString(36)
+    .slice(2, 10)}`;
+}
+
+function readStorageItem(key: string) {
+  try {
+    return globalThis.localStorage?.getItem(key) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function saveStorageItem(key: string, value: string) {
+  try {
+    globalThis.localStorage?.setItem(key, value);
+  } catch {
+    // Storage can be disabled in privacy-focused or embedded browsers.
+  }
 }

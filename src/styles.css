@@ -1,16 +1,17 @@
 :root {
-  --bg: #050807;
-  --panel: rgba(6, 15, 14, 0.88);
-  --panel-strong: rgba(5, 11, 12, 0.96);
+  --bg: #07110f;
+  --panel: rgba(8, 21, 20, 0.76);
+  --panel-strong: rgba(7, 16, 17, 0.9);
   --border: rgba(118, 255, 192, 0.26);
   --border-strong: rgba(118, 255, 192, 0.52);
   --text: #d8f7eb;
-  --muted: #86a69b;
+  --muted: #9ab9ae;
   --accent: #6cffbd;
   --accent-2: #45d7ff;
   --warning: #ffca68;
   --success: #7cff8c;
   --shadow: rgba(69, 215, 255, 0.18);
+  --bg-image-position: center center;
   color-scheme: dark;
   font-family:
     "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono",
@@ -50,12 +51,20 @@ html {
 body {
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100svh;
   margin: 0;
   color: var(--text);
-  background:
-    linear-gradient(180deg, rgba(2, 6, 7, 0.36), rgba(2, 6, 7, 0.88)),
-    url('/ot-terminal-bg.png') center / cover fixed,
-    var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(180deg, rgba(5, 12, 13, 0.12), rgba(4, 11, 12, 0.58)),
+    linear-gradient(90deg, rgba(42, 112, 109, 0.28) 0%, rgba(18, 50, 51, 0.12) 38%, transparent 68%),
+    url('/ot-terminal-bg.png');
+  background-position:
+    center center,
+    center center,
+    var(--bg-image-position);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 button,
@@ -74,7 +83,8 @@ a {
 .app-shell {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  min-height: 100svh;
+  overflow-x: hidden;
 }
 
 .ambient-grid {
@@ -92,6 +102,7 @@ a {
   position: relative;
   display: grid;
   min-height: 100vh;
+  min-height: 100svh;
   padding: clamp(16px, 4vw, 48px);
   place-items: center;
 }
@@ -101,6 +112,7 @@ a {
   grid-template-rows: auto minmax(420px, 1fr) auto;
   width: min(1120px, 100%);
   height: min(780px, calc(100vh - clamp(32px, 8vw, 96px)));
+  height: min(780px, calc(100svh - clamp(32px, 8vw, 96px)));
   min-height: 560px;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -531,12 +543,19 @@ pre.output-line {
 @media (max-width: 760px) {
   .terminal-stage {
     align-items: stretch;
-    padding: 10px;
+    padding: 8px;
+    place-items: stretch;
   }
 
   .terminal-window {
-    height: calc(100vh - 20px);
-    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: auto;
+    min-height: calc(100vh - 16px);
+    min-height: calc(100svh - 16px);
+  }
+
+  .terminal-body {
+    overflow-y: visible;
   }
 
   .terminal-header {
@@ -562,6 +581,8 @@ pre.output-line {
 
   .status-bar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: auto;
+    padding: 8px 12px;
   }
 
   .status-bar span {
@@ -574,20 +595,45 @@ pre.output-line {
 
 @media (max-width: 520px) {
   :root {
+    --bg-image-position: 18% center;
     font-size: 14px;
   }
 
-  body {
-    background-attachment: scroll;
+  .terminal-stage {
+    padding: 10px;
+  }
+
+  .terminal-window {
+    min-height: calc(100vh - 20px);
+    min-height: calc(100svh - 20px);
   }
 
   .terminal-body {
-    padding: 14px;
+    padding: 14px 12px 16px;
+  }
+
+  .terminal-header {
+    min-height: 44px;
+    padding: 0 12px;
+  }
+
+  .window-controls {
+    gap: 6px;
+  }
+
+  .control {
+    width: 10px;
+    height: 10px;
+  }
+
+  .terminal-tab:not(.active) {
+    display: none;
   }
 
   .command-input-row {
     grid-template-columns: 1fr;
     gap: 6px;
+    font-size: 16px;
   }
 
   .help-group li {
@@ -595,8 +641,16 @@ pre.output-line {
     gap: 3px;
   }
 
+  .status-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .status-bar span:nth-child(2) {
+    display: none;
+  }
+
   pre.output-line {
-    font-size: 0.76rem;
+    font-size: 0.66rem;
   }
 }
 
